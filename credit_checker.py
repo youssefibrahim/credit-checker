@@ -1,3 +1,5 @@
+# http://stackoverflow.com/questions/7460938/how-to-run-python-script-in-webpage
+asdfa
 ECE_1A = [100, 105, 140, 150]
 
 COURSES_1A = ['CHE 102', 'MATH 117']
