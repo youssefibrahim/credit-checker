@@ -56,7 +56,7 @@ def group_courses(courses):
 		if course.startswith('PD'):
 			PD.append(course)
 
-		elif course.startswith('ECE'):
+		elif course.startswith('ECE') or course in manditory:
 			ECE.append(course)
 
 		elif course.startswith('WKRPT'):
@@ -75,25 +75,28 @@ def group_courses(courses):
 
 def check_requirements(courses):
 	PD, ECE, CSE, NSE, WKRPT, COOP = group_courses(courses)
-	
+	import pdb
+	pdb.set_trace()
 	check_non_course(PD, 5)
 	check_non_course(WKRPT, 3)
 	check_non_course(COOP, 5)
 
-	check_courses(ECE)
-	check_courses(CSE)
-	check_courses(NSE)
+	check_ece_courses(ECE)
+	# check_courses(CSE)
+	# check_courses(NSE)
 
 
 def check_non_course(satisfied, requirement):
 	name = satisfied[0].split()[0]
+
 	if len(satisfied)<requirement:
 		print("WARNING: You currently have {} {}, but require at least {}".format(len(satisfied), name, requirement))
 	else:
 		print("You've met requirements for {}".format(name))
 
-def check_courses(courses):
-	
+def check_ece_courses(courses):
+
+	return
 
 
 
@@ -108,5 +111,4 @@ if __name__ == "__main__":
 	
 	check_requirements(courses)
 	
-	import pdb
-	pdb.set_trace()
+
