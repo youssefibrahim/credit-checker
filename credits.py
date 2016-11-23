@@ -13,10 +13,11 @@ nse_courses_list_2 = ['BIOL 110', 'BIOL 130', 'BIOL 150', 'BIOL 165', 'BIOL 211'
 					  'PHYS 334', 'PHYS 335', 'PHYS 375', 'PHYS 380', 'SCI 238']
 
 SEPERATOR = '__________________________________________________________________________________________'
-COURSES_START = 'Course      Description                Attempt/Earn  Grade  Credit InGPA  Desig   DesGrd  '
+COURSES_START = 'Course      Description                Attempt/Earn  Grade  Credit InGPA  Desig   DesGrd'
 
 manditory = ['ECE 400B', 'ECE 498B', 'ECE 400A', 'ECE 498A', 'ECE 224', 'ECE 300B', 'ECE 318',
 			 'ECE 361', 'ECE 390', 'ECE 300A', 'ECE 316', 'ECE 331', 'ECE 375', 'ECE 380', 
 			 'ECE 124', 'ECE 200B', 'ECE 206', 'ECE 207', 'ECE 209', 'ECE 242', 'ECE 200A',
 			 'ECE 205', 'ECE 222', 'ECE 240', 'ECE 250', 'ECE 290', 'ECE 100B', 'ECE 103',
-			 'ECE 106', 'ECE 124', 'ECE 155', 'ECE 100A', 'ECE 105', 'ECE 140', 'ECE 150']
+			 'ECE 106', 'ECE 124', 'ECE 155', 'ECE 100A', 'ECE 105', 'ECE 140', 'ECE 150',
+			 'MATH 215', 'MATH 119', 'CHE 102', 'MATH 117']

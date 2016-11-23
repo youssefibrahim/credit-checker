@@ -3,7 +3,7 @@
 from credits import *
 
 
-lines = [line.rstrip('\n') for line in open('transcript.txt')]
+lines = [line.rstrip() for line in open('transcript.txt')]
 lines = filter(None, lines)
 
 
@@ -56,7 +56,7 @@ def group_courses(courses):
 		if course.startswith('PD'):
 			PD.append(course)
 
-		elif course.startswith('ECE') or course in manditory:
+		elif course in manditory:
 			ECE.append(course)
 
 		elif course.startswith('WKRPT'):
@@ -75,8 +75,6 @@ def group_courses(courses):
 
 def check_requirements(courses):
 	PD, ECE, CSE, NSE, WKRPT, COOP = group_courses(courses)
-	import pdb
-	pdb.set_trace()
 	check_non_course(PD, 5)
 	check_non_course(WKRPT, 3)
 	check_non_course(COOP, 5)
@@ -95,12 +93,13 @@ def check_non_course(satisfied, requirement):
 		print("You've met requirements for {}".format(name))
 
 def check_ece_courses(courses):
-
 	return
 
 
 
 if __name__ == "__main__":
+	import pdb
+	pdb.set_trace()
 	terms = get_terms(lines)
 	courses = get_courses(terms)
 	courses = [course for course in courses if len(course) >= 5]
