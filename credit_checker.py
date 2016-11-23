@@ -41,7 +41,16 @@ def get_courses(terms):
 def extract_course_name(course):
 	return ' '.join(course[:2])
 
+def is_ee(courses):
+	EE_flag = False
+
+	if set(manditory_EE).issubset(set(courses)):
+		EE_flag = True
+
+	return EE_flag
+
 def group_courses(courses):
+	EE_flag = is_ee(courses)
 	PD = []
 	ECE = []
 	CSE = []
@@ -49,11 +58,13 @@ def group_courses(courses):
 	WKRPT = []
 	COOP = []
 	TE = []
+	import pdb
+	pdb.set_trace()
 	for course in courses:
 		if course.startswith('PD'):
 			PD.append(course)
 
-		elif course in manditory:
+		elif course in manditory or (EE_flag and course in manditory_EE) or (not EE_flag and course in manditory_CE):
 			ECE.append(course)
 
 		elif course.startswith('WKRPT'):
@@ -88,6 +99,9 @@ def check_if_list_c_cse(course):
 
 	return is_cse
 
+def check_if_list_a_cse(course):
+	return True if course in set(cse_courses_list_a) else False
+	
 
 def check_requirements(courses):
 	PD, ECE, CSE, NSE, TE, WKRPT, COOP = group_courses(courses)
@@ -109,13 +123,10 @@ def check_non_course(satisfied, requirement):
 		print("WARNING: You currently have {} {}, but require at least {}".format(len(satisfied), name, requirement))
 	else:
 		print("You've met requirements for {}".format(name))
-
+		
 
 def check_ece_courses(ece_courses, te_courses):
-	EE_flag = False
-
-	if set(manditory_EE).issubset(set(courses)):
-		EE_flag = True
+	return
 
 
 if __name__ == "__main__":
