@@ -58,8 +58,6 @@ def group_courses(courses):
 	WKRPT = []
 	COOP = []
 	TE = []
-	import pdb
-	pdb.set_trace()
 	for course in courses:
 		if course.startswith('PD'):
 			PD.append(course)
@@ -85,7 +83,10 @@ def group_courses(courses):
 
 
 def check_if_cse(course):
-	return check_if_list_c_cse(course) or check_if_list_a_cse(course)
+	return check_if_list_c_cse(course) or check_if_list_a_cse(course) or check_if_list_d_cse(course)
+
+def check_if_list_d_cse(course):
+	return True if course in set(cse_courses_list_d) else False
 
 
 def check_if_list_c_cse(course):
@@ -99,21 +100,22 @@ def check_if_list_c_cse(course):
 
 	return is_cse
 
+
 def check_if_list_a_cse(course):
 	return True if course in set(cse_courses_list_a) else False
 	
 
 def check_requirements(courses):
 	PD, ECE, CSE, NSE, TE, WKRPT, COOP = group_courses(courses)
-	import pdb
-	pdb.set_trace()
+
 	check_non_course(PD, 5)
 	check_non_course(WKRPT, 3)
 	check_non_course(COOP, 5)
 
 	check_ece_courses(ECE)
-	# check_courses(CSE)
-	# check_courses(NSE)
+	check_cse_courses(CSE)
+	check_nse_courses(NSE)
+	check_te_courses(TE)
 
 
 def check_non_course(satisfied, requirement):
@@ -125,9 +127,63 @@ def check_non_course(satisfied, requirement):
 		print("You've met requirements for {}".format(name))
 		
 
-def check_ece_courses(ece_courses, te_courses):
-	return
+def check_ece_courses(ece_courses):
+	EE_flag = is_ee(ece_courses)
 
+	if EE_flag:
+		return set(ece_courses) == set(manditory + manditory_EE)
+	return set(ece_courses) == set(manditory_EE + manditory_CE)
+
+
+def check_nse_courses(nse_courses):
+	list_1 = False
+	list_2 = False
+	for course in nse_courses:
+		if course in nse_courses_list_1:
+			list_1 = True
+		if course in nse_courses_list_2:
+			list_2 = True
+
+		if list_2 and list_1:
+			break
+
+	return list_1 and list_2
+
+
+def check_cse_courses(cse_courses):
+
+	list_a_d = []
+	list_c = []
+
+	for course in cse_courses:
+		if check_if_list_c_cse(course):
+			list_c.append(course)
+		elif check_if_list_a_cse(course) or check_if_list_d_cse(course):
+			list_a_d.append(course)
+
+	if (len(list_c) == 2 and len(list_a_d) == 2) or len(list_c) >= 4:
+		print("You've completed your CSE requirements")
+
+	else:
+		print("WARNING: You have completed {} from list C and {} from list A/C/D while required is 2 from list C and 2 from any of A/C/D".format(len(list_c),len(list_a_d)))
+
+
+def check_te_courses(te_courses):
+	ece_count = 0
+	for course in te_courses:
+		if course.startswith('ECE'):
+			ece_count += 1
+
+	if ece_count >= 3 and len(te_courses) >= 5:
+		print("You've satisfied all TE requirements")
+
+	else:
+		if ece_count < 3:
+			print("You haven't satisfied the required 3 ECE TE's, and only recieved {}\n".format(ece_count))
+
+		if len(te_courses) < 5:
+			print("You have only completed {} out of the 5 required TE courses".format(len(te_courses)))
+			print(' '.join(te_courses))
 
 if __name__ == "__main__":
 	terms = get_terms(lines)
