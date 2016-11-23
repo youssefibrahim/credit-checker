@@ -1,5 +1,7 @@
 # http://stackoverflow.com/questions/7460938/how-to-run-python-script-in-webpage
 
+# Does not take in FINE as a CSE
+
 from credits import *
 
 
@@ -39,12 +41,6 @@ def get_courses(terms):
 def extract_course_name(course):
 	return ' '.join(course[:2])
 
-def join_course_names(courses):
-	list_of_courses = []
-	for course in courses:
-		list_of_courses.append(' '.join(course))
-	return list_of_courses
-
 def group_courses(courses):
 	PD = []
 	ECE = []
@@ -52,6 +48,7 @@ def group_courses(courses):
 	NSE = []
 	WKRPT = []
 	COOP = []
+	TE = []
 	for course in courses:
 		if course.startswith('PD'):
 			PD.append(course)
@@ -68,13 +65,34 @@ def group_courses(courses):
 		elif course in nse_courses_list_1 or course in nse_courses_list_2:
 			NSE.append(course)
 
-		else:
+		elif check_if_cse(course):
 			CSE.append(course)
-	return PD, ECE, CSE, NSE, WKRPT, COOP
+
+		else:
+			TE.append(course)
+	return PD, ECE, CSE, NSE, TE, WKRPT, COOP
+
+
+def check_if_cse(course):
+	return check_if_list_c_cse(course) or check_if_list_a_cse(course)
+
+
+def check_if_list_c_cse(course):
+	is_cse = False
+
+	if course in cse_courses_list_c:
+		is_cse = True
+
+	if course not in not_list_c and any([course.startswith(dprtmnt) for dprtmnt in dprtmns_list_c]):
+		is_cse = True
+
+	return is_cse
 
 
 def check_requirements(courses):
-	PD, ECE, CSE, NSE, WKRPT, COOP = group_courses(courses)
+	PD, ECE, CSE, NSE, TE, WKRPT, COOP = group_courses(courses)
+	import pdb
+	pdb.set_trace()
 	check_non_course(PD, 5)
 	check_non_course(WKRPT, 3)
 	check_non_course(COOP, 5)
@@ -92,21 +110,21 @@ def check_non_course(satisfied, requirement):
 	else:
 		print("You've met requirements for {}".format(name))
 
-def check_ece_courses(courses):
-	return
 
+def check_ece_courses(ece_courses, te_courses):
+	EE_flag = False
+
+	if set(manditory_EE).issubset(set(courses)):
+		EE_flag = True
 
 
 if __name__ == "__main__":
-	import pdb
-	pdb.set_trace()
 	terms = get_terms(lines)
 	courses = get_courses(terms)
 	courses = [course for course in courses if len(course) >= 5]
 	courses = [extract_course_name(course) for course in courses]
  	for item in remove:
 		courses = filter(lambda course: not course.startswith(item[0]), courses)
-	# courses = join_course_names(courses)
 	
 	check_requirements(courses)
 	
