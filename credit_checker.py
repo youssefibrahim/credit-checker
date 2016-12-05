@@ -5,10 +5,6 @@
 from credits import *
 
 
-lines = [line.rstrip() for line in open('transcript.txt')]
-lines = filter(None, lines)
-
-
 def get_terms(transcript):
 	indices = find_indices(transcript, SEPERATOR)
 	terms = []
@@ -23,6 +19,19 @@ def find_indices(lst, text):
 	indices = [i for i, x in enumerate(lst) if x == text]
 	return indices
 
+
+# TODO
+def get_passed_courses(courses):
+	course_names = [extract_course_name(course) for course in courses]
+	
+
+
+def passed_course(course_line):
+	if int(course_line[-3]) >= 1:
+		return True
+	else:
+		import pdb
+		pdb.set_trace()
 
 def get_courses_per_term(term):
 	start_index = term.index(COURSES_START)
@@ -185,11 +194,14 @@ def check_te_courses(te_courses):
 			print("You have only completed {} out of the 5 required TE courses".format(len(te_courses)))
 			print(' '.join(te_courses))
 
+
 if __name__ == "__main__":
+	lines = [line.rstrip() for line in open('transcript.txt')]
+	lines = filter(None, lines)
 	terms = get_terms(lines)
 	courses = get_courses(terms)
 	courses = [course for course in courses if len(course) >= 5]
-	courses = [extract_course_name(course) for course in courses]
+	courses = get_passed_courses(courses)
  	for item in remove:
 		courses = filter(lambda course: not course.startswith(item[0]), courses)
 	
