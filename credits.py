@@ -1,3 +1,6 @@
+#this is the a tutorial by the idiot brother I like it 
+
+
 SEPERATOR = '__________________________________________________________________________________________'
 COURSES_START = 'Course      Description                Attempt/Earn  Grade  Credit InGPA  Desig   DesGrd'
 
