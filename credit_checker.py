@@ -6,6 +6,8 @@ from credits import *
 
 
 def get_terms(transcript):
+
+	# Change seperator to 'startwith' rather hard code
 	indices = find_indices(transcript, SEPERATOR)
 	terms = []
 	for index, element in enumerate(indices):
@@ -16,13 +18,17 @@ def get_terms(transcript):
 
 
 def find_indices(lst, text):
-	indices = [i for i, x in enumerate(lst) if x == text]
+	indices = [i for i, x in enumerate(lst) if text in x]
 	return indices
 
 
 # TODO
 def get_passed_courses(courses):
-	course_names = [extract_course_name(course) for course in courses]
+	passed = []
+	for course in courses:
+		if is_passed(course):
+			passed.append(course)
+	return passed
 	
 
 
@@ -59,13 +65,14 @@ def is_ee(courses):
 	return EE_flag
 
 def group_courses(courses):
+	import pdb
+	pdb.set_trace()
 	EE_flag = is_ee(courses)
 	PD = []
 	ECE = []
 	CSE = []
 	NSE = []
 	WKRPT = []
-	COOP = []
 	TE = []
 	for course in courses:
 		if course.startswith('PD'):
@@ -77,9 +84,6 @@ def group_courses(courses):
 		elif course.startswith('WKRPT'):
 			WKRPT.append(course)
 
-		elif course.startswith('COOP'):
-			COOP.append(course)
-
 		elif course in nse_courses_list_1 or course in nse_courses_list_2:
 			NSE.append(course)
 
@@ -88,7 +92,7 @@ def group_courses(courses):
 
 		else:
 			TE.append(course)
-	return PD, ECE, CSE, NSE, TE, WKRPT, COOP
+	return PD, ECE, CSE, NSE, TE, WKRPT
 
 
 def check_if_cse(course):
@@ -114,12 +118,12 @@ def check_if_list_a_cse(course):
 	return True if course in set(cse_courses_list_a) else False
 	
 
-def check_requirements(courses):
-	PD, ECE, CSE, NSE, TE, WKRPT, COOP = group_courses(courses)
+def check_requirements(courses, coop):
+	PD, ECE, CSE, NSE, TE, WKRPT = group_courses(courses)
 
 	check_non_course(PD, 5)
 	check_non_course(WKRPT, 3)
-	check_non_course(COOP, 5)
+	check_non_course(coop, 5)
 
 	check_ece_courses(ECE)
 	check_cse_courses(CSE)
@@ -195,16 +199,26 @@ def check_te_courses(te_courses):
 			print(' '.join(te_courses))
 
 
+
+def is_passed(course):
+	slash = '/'
+	indices = find_indices(course, slash)
+	for index in indices:
+		units = course[index].split(slash)
+		if float(units[1]) > 0:
+			return True
+		elif course[-2] == 'SUPP':
+			if course[-1] == 'S':
+				return True
+	return False
+
+
 if __name__ == "__main__":
-	lines = [line.rstrip() for line in open('transcript.txt')]
-	lines = filter(None, lines)
-	terms = get_terms(lines)
-	courses = get_courses(terms)
-	courses = [course for course in courses if len(course) >= 5]
+	courses = [line.split() for line in open('transcript.txt') if '/' in line and "Course" not in line]
+	coop = [line.rstrip() for line in open('transcript.txt') if "COOP" in line and "CR" in line]
+
 	courses = get_passed_courses(courses)
- 	for item in remove:
-		courses = filter(lambda course: not course.startswith(item[0]), courses)
-	
-	check_requirements(courses)
+	courses = [extract_course_name(course) for course in courses]
+	check_requirements(courses, coop)
 	
 
