@@ -5,53 +5,18 @@
 from credits import *
 
 
-def get_terms(transcript):
-
-	# Change seperator to 'startwith' rather hard code
-	indices = find_indices(transcript, SEPERATOR)
-	terms = []
-	for index, element in enumerate(indices):
-		if index < len(indices)-1:
-			terms.append(transcript[indices[index]:indices[index+1]])
-
-	return terms
-
-
 def find_indices(lst, text):
 	indices = [i for i, x in enumerate(lst) if text in x]
 	return indices
 
 
-# TODO
 def get_passed_courses(courses):
 	passed = []
 	for course in courses:
 		if is_passed(course):
 			passed.append(course)
 	return passed
-	
 
-
-def passed_course(course_line):
-	if int(course_line[-3]) >= 1:
-		return True
-	else:
-		import pdb
-		pdb.set_trace()
-
-def get_courses_per_term(term):
-	start_index = term.index(COURSES_START)
-	courses = []
-	for line in term[start_index+1:]:
-		course = line.split()
-		courses.append(course)
-	return courses
-
-def get_courses(terms):
-	courses = []
-	for term in terms:
-		courses.extend(get_courses_per_term(term))
-	return courses
 
 def extract_course_name(course):
 	return ' '.join(course[:2])
@@ -65,8 +30,6 @@ def is_ee(courses):
 	return EE_flag
 
 def group_courses(courses):
-	import pdb
-	pdb.set_trace()
 	EE_flag = is_ee(courses)
 	PD = []
 	ECE = []
@@ -118,34 +81,44 @@ def check_if_list_a_cse(course):
 	return True if course in set(cse_courses_list_a) else False
 	
 
-def check_requirements(courses, coop):
+def check_requirements(courses, COOP):
 	PD, ECE, CSE, NSE, TE, WKRPT = group_courses(courses)
+	requirement = ''
+	requirement += check_non_course(PD, 5)
+	requirement += check_non_course(WKRPT, 3)
+	requirement += check_non_course(COOP, 5)
 
-	check_non_course(PD, 5)
-	check_non_course(WKRPT, 3)
-	check_non_course(coop, 5)
-
-	check_ece_courses(ECE)
-	check_cse_courses(CSE)
-	check_nse_courses(NSE)
-	check_te_courses(TE)
+	requirement += check_ece_courses(ECE)
+	requirement += check_cse_courses(CSE)
+	requirement += check_nse_courses(NSE)
+	requirement += check_te_courses(TE)
+	return requirement, PD, WKRPT, COOP, ECE, CSE, NSE, TE
 
 
 def check_non_course(satisfied, requirement):
+	import pdb
+	pdb.set_trace()
 	name = satisfied[0].split()[0]
 
 	if len(satisfied)<requirement:
-		print("WARNING: You currently have {} {}, but require at least {}".format(len(satisfied), name, requirement))
+		return "WARNING: You currently have {} {}, but require at least {}\n".format(len(satisfied), name, requirement)
 	else:
-		print("You've met requirements for {}".format(name))
+		return "You've met requirements for {}\n".format(name)
 		
 
 def check_ece_courses(ece_courses):
 	EE_flag = is_ee(ece_courses)
 
-	if EE_flag:
-		return set(ece_courses) == set(manditory + manditory_EE)
-	return set(ece_courses) == set(manditory_EE + manditory_CE)
+	if set(ece_courses) == set(manditory + manditory_EE) or set(ece_courses) == set(manditory_EE + manditory_CE):
+		rslt = "You've met all your "
+		if EE_flag:
+			rslt += "Electrical Engineering course requirements\n"
+		else:
+			rslt += "Computer Engineering course requirements\n"
+	else:
+		rslt = "You have not me your manditory core course requirements\n"
+
+	return rslt
 
 
 def check_nse_courses(nse_courses):
@@ -160,7 +133,16 @@ def check_nse_courses(nse_courses):
 		if list_2 and list_1:
 			break
 
-	return list_1 and list_2
+	rqrmnt = ""
+	if list_1:
+		rqrmnt += "You've met your NSE list 1 requirements\n"
+	else:
+		rqrmnt += "You haven't met your NSE list 1 requirements\n"
+	if list_2:
+		rqrmnt += "You've met your NSE list 2 requirements\n"
+	else:
+		rqrmnt += "You haven't met your NSE list 2 requirements\n"
+	return rqrmnt
 
 
 def check_cse_courses(cse_courses):
@@ -175,10 +157,10 @@ def check_cse_courses(cse_courses):
 			list_a_d.append(course)
 
 	if (len(list_c) == 2 and len(list_a_d) == 2) or len(list_c) >= 4:
-		print("You've completed your CSE requirements")
+		return "You've completed your CSE requirements\n"
 
 	else:
-		print("WARNING: You have completed {} from list C and {} from list A/C/D while required is 2 from list C and 2 from any of A/C/D".format(len(list_c),len(list_a_d)))
+		return "WARNING: You have completed {} from list C and {} from list A/C/D while required is 2 from list C and 2 from any of A/C/D\n".format(len(list_c),len(list_a_d))
 
 
 def check_te_courses(te_courses):
@@ -188,15 +170,15 @@ def check_te_courses(te_courses):
 			ece_count += 1
 
 	if ece_count >= 3 and len(te_courses) >= 5:
-		print("You've satisfied all TE requirements")
+		return "You've satisfied all TE requirements"
 
 	else:
 		if ece_count < 3:
-			print("You haven't satisfied the required 3 ECE TE's, and only recieved {}\n".format(ece_count))
+			return "You haven't satisfied the required 3 ECE TE's, and only recieved {}\n".format(ece_count)
 
 		if len(te_courses) < 5:
-			print("You have only completed {} out of the 5 required TE courses".format(len(te_courses)))
-			print(' '.join(te_courses))
+			courses = (' '.join(te_courses))
+			return "You have only completed {} ({}) out of the 5 required TE courses\n".format(len(te_courses), courses)
 
 
 
@@ -211,14 +193,3 @@ def is_passed(course):
 			if course[-1] == 'S':
 				return True
 	return False
-
-
-if __name__ == "__main__":
-	courses = [line.split() for line in open('transcript.txt') if '/' in line and "Course" not in line]
-	coop = [line.rstrip() for line in open('transcript.txt') if "COOP" in line and "CR" in line]
-
-	courses = get_passed_courses(courses)
-	courses = [extract_course_name(course) for course in courses]
-	check_requirements(courses, coop)
-	
-
