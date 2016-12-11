@@ -96,8 +96,6 @@ def check_requirements(courses, COOP):
 
 
 def check_non_course(satisfied, requirement):
-	import pdb
-	pdb.set_trace()
 	name = satisfied[0].split()[0]
 
 	if len(satisfied)<requirement:
