@@ -1,12 +1,40 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>ECE Credit Checker</title>
-  </head>
-<body>
-  <div class="container">  
-    <textarea rows="4" cols="50" name="transcript" placeholder="Paste Unofficial Transcript Here" type="text" form="transreader"></textarea>
+<head>
+  <title>ECE Credit Checker</title>
+  <link rel="stylesheet" href="../static/index.css"/>
+  <script>
+ function disableSubmit() {
+  document.getElementById("submit").disabled = true;
+ }
+
+  function activateButton(element) {
+
+      if(element.checked) {
+        document.getElementById("submit").disabled = false;
+       }
+       else  {
+        document.getElementById("submit").disabled = true;
+      }
+
+  }
+  </script>
+</head>
+<body onload="disableSubmit()">
+<div class="container">  
+  <form id="contact" action="" method="post">
+    <h3>UWaterloo ECE Credit Checker</h3>
+    <h4>Can You Graduate?</h4>
+    <textarea rows="10" cols="100%" name="transcript" placeholder="Paste Unofficial Transcript Here" type="text" form="transreader" style="margin-left: 0px;margin-right: 0px;width: 353px;max-width: 353px;"></textarea>
     <form  action="/result" method="POST" id="transreader">
-      <p><input type="submit" value="submit"/></p>
+      <input type="checkbox" name="terms" id="terms" onchange="activateButton(this)">  I Agree To The <a href="../static/disclaimer.pdf">Credit Checker Services Agreement</a>
+      <br><br>
+      <button type="submit" name="submit" id="submit">SUBMIT</button>
     </form>
-  </div>
+    <p class="copyright">Designed by<a href="https://www.youssefibrahim.com"> Youssef Ibrahim</a></p>
+  </form>
+</div>
 </body>
+</html>
+
+
