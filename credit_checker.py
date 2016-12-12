@@ -83,15 +83,15 @@ def check_if_list_a_cse(course):
 
 def check_requirements(courses, COOP):
 	PD, ECE, CSE, NSE, TE, WKRPT = group_courses(courses)
-	requirement = ''
-	requirement += check_non_course(PD, 5)
-	requirement += check_non_course(WKRPT, 3)
-	requirement += check_non_course(COOP, 5)
+	requirement = []
+	requirement.append(check_non_course(PD, 5))
+	requirement.append(check_non_course(WKRPT, 3))
+	requirement.append(check_non_course(COOP, 5))
 
-	requirement += check_ece_courses(ECE)
-	requirement += check_cse_courses(CSE)
-	requirement += check_nse_courses(NSE)
-	requirement += check_te_courses(TE)
+	requirement.append(check_ece_courses(ECE))
+	requirement.append(check_cse_courses(CSE))
+	requirement.append(check_nse_courses(NSE))
+	requirement.append(check_te_courses(TE))
 	return requirement, PD, WKRPT, COOP, ECE, CSE, NSE, TE
 
 
@@ -114,7 +114,8 @@ def check_ece_courses(ece_courses):
 		else:
 			rslt += "Computer Engineering course requirements\n"
 	else:
-		rslt = "You have not me your manditory core course requirements\n"
+		missing_courses = set(manditory + manditory_EE) - set(ece_courses)
+		rslt = "You have not met your manditory core course requirements by missing {}\n".format(', '.join(missing_courses))
 
 	return rslt
 

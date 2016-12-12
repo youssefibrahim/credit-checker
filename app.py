@@ -16,7 +16,8 @@ def my_form_post():
 	courses = get_passed_courses(courses)
 	courses = [extract_course_name(course) for course in courses]
 	coop = [extract_course_name(work.split()) for work in coop]
-	text, PD, WKRPT, COOP, ECE, CSE, NSE, TE = check_requirements(courses, coop)
+	
+	rqrmnt, PD, WKRPT, COOP, ECE, CSE, NSE, TE = check_requirements(courses, coop)
 	
 	PD = reformat(sorted(PD))
 	WKRPT = reformat(sorted(WKRPT))
@@ -25,9 +26,8 @@ def my_form_post():
 	CSE = reformat(sorted(CSE))
 	NSE = reformat(sorted(NSE))
 	TE = reformat(sorted(TE))
-	import pdb
-	pdb.set_trace()
-	return render_template('result.html', text=text, PD=PD, WKRPT=WKRPT, COOP=COOP, ECE=ECE, CSE=CSE, NSE=NSE, TE=TE)
+
+	return render_template('result.html', rqrmnt=rqrmnt, PD=PD, WKRPT=WKRPT, COOP=COOP, ECE=ECE, CSE=CSE, NSE=NSE, TE=TE)
     
 def reformat(courses):
 	return ', '.join(courses)
