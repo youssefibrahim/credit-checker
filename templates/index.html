@@ -1,3 +1,4 @@
+<!-- not working -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,19 +23,17 @@
 </head>
 <body onload="disableSubmit()">
 <div class="container">  
-  <form id="contact" action="" method="post">
+  <form action="/result" method="POST" id="contact">
     <h3>UWaterloo ECE Credit Checker</h3>
     <h4>Can You Graduate?</h4>
-    <textarea rows="10" cols="100%" name="transcript" placeholder="Paste Unofficial Transcript Here" type="text" form="transreader" style="margin-left: 0px;margin-right: 0px;width: 353px;max-width: 353px;"></textarea>
-    <form  action="/result" method="POST" id="transreader">
-      <input type="checkbox" name="terms" id="terms" onchange="activateButton(this)">  I Agree To The <a href="../static/disclaimer.pdf">Credit Checker Services Agreement</a>
+    <textarea name="transcript" placeholder="Paste Unofficial Transcript Here" type="text" tabindex="1" required autofocus form="contact" style="margin-left: 0px;margin-right: 0px;width: 353px;max-width: 353px;height: 200px;"></textarea>
+    <form id="transreader">
+      <input required autofocus type="checkbox" name="terms" id="terms" onchange="activateButton(this)">  I Agree To The <a href="/disclaimer" class="button">Credit Checker Services Agreement</a>
       <br><br>
-      <button type="submit" name="submit" id="submit">SUBMIT</button>
+      <button name="submit" type="submit" id="contact-submit">Submit</button>
     </form>
     <p class="copyright">Designed by<a href="https://www.youssefibrahim.com"> Youssef Ibrahim</a></p>
   </form>
 </div>
 </body>
 </html>
-
-

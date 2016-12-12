@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, send_file
 from credit_checker import *
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ def my_form_post():
 	courses = get_passed_courses(courses)
 	courses = [extract_course_name(course) for course in courses]
 	coop = [extract_course_name(work.split()) for work in coop]
-	
+
 	rqrmnt, PD, WKRPT, COOP, ECE, CSE, NSE, TE = check_requirements(courses, coop)
 	
 	PD = reformat(sorted(PD))
@@ -29,6 +29,10 @@ def my_form_post():
 
 	return render_template('result.html', rqrmnt=rqrmnt, PD=PD, WKRPT=WKRPT, COOP=COOP, ECE=ECE, CSE=CSE, NSE=NSE, TE=TE)
     
+@app.route("/disclaimer")
+def present_disclaimer():
+	return send_file('static/disclaimer.pdf')
+
 def reformat(courses):
 	return ', '.join(courses)
 
