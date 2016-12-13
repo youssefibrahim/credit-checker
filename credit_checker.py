@@ -95,7 +95,9 @@ def check_requirements(courses, COOP):
 	return requirement, PD, WKRPT, COOP, ECE, CSE, NSE, TE
 
 
-def check_non_course(satisfied, requirement):
+def check_non_course(satisfied, requirement=None):
+	if requirement:
+		
 	name = satisfied[0].split()[0]
 
 	if len(satisfied)<requirement:
@@ -113,9 +115,6 @@ def check_ece_courses(ece_courses):
 			rslt += "Electrical Engineering course requirements\n"
 		else:
 			rslt += "Computer Engineering course requirements\n"
-	else:
-		missing_courses = set(manditory + manditory_EE) - set(ece_courses)
-		rslt = "You have not met your manditory core course requirements by missing {}\n".format(', '.join(missing_courses))
 
 	return rslt
 
@@ -132,16 +131,7 @@ def check_nse_courses(nse_courses):
 		if list_2 and list_1:
 			break
 
-	rqrmnt = ""
-	if list_1:
-		rqrmnt += "You've met your NSE list 1 requirements\n"
-	else:
-		rqrmnt += "You haven't met your NSE list 1 requirements\n"
-	if list_2:
-		rqrmnt += "You've met your NSE list 2 requirements\n"
-	else:
-		rqrmnt += "You haven't met your NSE list 2 requirements\n"
-	return rqrmnt
+	return list_1 and list_2
 
 
 def check_cse_courses(cse_courses):

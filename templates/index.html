@@ -1,38 +1,50 @@
-<!-- not working -->
 <!DOCTYPE html>
 <html>
 <head>
   <title>ECE Credit Checker</title>
   <link rel="stylesheet" href="../static/index.css"/>
-  <script>
- function disableSubmit() {
-  document.getElementById("submit").disabled = true;
- }
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-  function activateButton(element) {
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-      if(element.checked) {
-        document.getElementById("submit").disabled = false;
-       }
-       else  {
-        document.getElementById("submit").disabled = true;
-      }
-
-  }
-  </script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
-<body onload="disableSubmit()">
+<body>
+  <div id="site-nav" class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/" style="color: black; font-size: 40px;">Credit Checker</a>
+        </div>
+    </div>
+  </div>
 <div class="container">  
   <form action="/result" method="POST" id="contact">
     <h3>UWaterloo ECE Credit Checker</h3>
     <h4>Can You Graduate?</h4>
-    <textarea name="transcript" placeholder="Paste Unofficial Transcript Here" type="text" tabindex="1" required autofocus form="contact" style="margin-left: 0px;margin-right: 0px;width: 353px;max-width: 353px;height: 200px;"></textarea>
-    <form id="transreader">
-      <input required autofocus type="checkbox" name="terms" id="terms" onchange="activateButton(this)">  I Agree To The <a href="/disclaimer" class="button">Credit Checker Services Agreement</a>
+    <textarea name="transcript" placeholder="Paste Unofficial Transcript Here" type="text" tabindex="1" required autofocus form="contact" style="margin-left: 0px;margin-right: 0px;width: 320px;max-width: 320px;height: 200px;"></textarea>
+    <form class="transreader">
+      <div class="drop">
+        <select name="dropdown" id="dropdown-menu" style="color: black;font-weight: 400;padding-bottom: 0px;border-bottom-width: 10px;border-top-width: 10px;border-color: transparent;">
+          <option id="dropdown-text">Computer Engineering</option>
+          <option id="dropdown-text" selected>Electrical Engineering</option>
+      </select>
+      </div>
+      <input required autofocus type="checkbox" name="terms" id="terms" onchange="activateButton(this)">
+      <a style="color: black;font-weight: 300;" classstyle="color: black;">I Agree To The </a>
+      <a style="color: blue;font-weight: 300;text-decoration: underline;" href="/disclaimer" class="button">Credit Checker Services Agreement</a>
       <br><br>
       <button name="submit" type="submit" id="contact-submit">Submit</button>
     </form>
-    <p class="copyright">Designed by<a href="https://www.youssefibrahim.com"> Youssef Ibrahim</a></p>
+    <p style="font-weight: 400;" class="copyright">Designed by<a href="https://www.youssefibrahim.com"> Youssef Ibrahim</a></p>
   </form>
 </div>
 </body>

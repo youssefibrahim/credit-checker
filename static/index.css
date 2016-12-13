@@ -18,7 +18,7 @@ body {
   font-size: 12px;
   line-height: 30px;
   color: #777;
-  background: #4CAF50;
+  background: linear-gradient(to right, #25c481, #25b7c4);;
 }
 
 .container {
@@ -62,10 +62,33 @@ body {
   margin: 0 0 5px;
   padding: 10px;
 }
-input::-webkit-input-placeholder {
-  font-size: 20px;
+
+textarea::-webkit-input-placeholder {
+  font-size: 25px;
   line-height: 1;
   text-align: center;
+  color: black;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  font-size: 25px;
+  line-height: 1;
+  text-align: center;
+  color: black;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  font-size: 25px;
+  line-height: 1;
+  text-align: center;
+  color: black; 
+}
+
+:-ms-input-placeholder {  
+  font-size: 25px;
+  line-height: 1;
+  text-align: center;
+  color: black;
 }
 
 
@@ -91,4 +114,23 @@ input::-webkit-input-placeholder {
 .copyright {
   text-align: center;
   color: black;
+}
+
+.navbar {
+  z-index: 200;
+  background-color: rgba(250,250,250,0.6);
+  height: 54px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2)
+}
+
+.navbar .container-fluid .brand {
+  color: white;
+}
+
+.navbar .container-fluid .brand:hover {
+  color: grey;
+}
+
+a:focus, a:hover {
+  text-decoration: none;
 }

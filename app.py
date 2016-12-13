@@ -10,6 +10,9 @@ def home():
 @app.route("/result", methods=['POST'])
 def my_form_post():
 	text = request.form['transcript']
+	eng = request.form['dropdown']
+	import pdb
+	pdb.set_trace()
 	lines = text.split('\n')
 	courses = [line.split() for line in lines if '/' in line and "Course" not in line]
 	coop = [line.rstrip() for line in lines if "COOP" in line and "CR" in line]
