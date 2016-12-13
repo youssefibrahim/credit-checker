@@ -108,11 +108,9 @@ def build_dict(courses=[], missing_courses=[], num_required=None):
 def check_ece_courses(ece_courses, EE_flag):
 	dict = {}
 	if EE_flag:
-		return build_dict(ece_courses, list(set(manditory + manditory_EE) - set(ece_courses)))
+		return build_dict(ece_courses, list(set(manditory + manditory_EE) - set(ece_courses)), len(manditory) + len(manditory_EE))
 
-	import pdb
-	pdb.set_trace()
-	return build_dict(ece_courses, list(set(manditory + manditory_CE) - set(ece_courses)))
+	return build_dict(ece_courses, list(set(manditory + manditory_CE) - set(ece_courses)), len(manditory + manditory_CE))
 
 
 def check_nse_courses(nse_courses):
