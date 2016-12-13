@@ -1,50 +1,72 @@
-<html>
-	<head>
-		<title>Credit Check Results</title>
-	</head>
-	<body>
-		<table border="1" width="100%">
-			<tr>
-				<td>
-	   				<table border="1" width="100%">
-	   					<tr>
-	   						<th>Requriement</th>
-		   					<th>Fulfilled</th>
-	   					</tr>
-	   				<tr>
-	   					<td>ECE</td>
-	   					<td>{{ECE}}</td>
-	   				</tr>
-	   				<tr>
-	   					<td>NSE</td>
-	   					<td>{{NSE}}</td>
-	   				</tr>
-	   				<tr>
-	   					<td>TE</td>
-	   					<td>{{TE}}</td>
-	   				</tr>
-	   				<tr>
-	   					<td>CSE</td>
-	   					<td>{{CSE}}</td>
-	   				</tr>
-	   				<tr>
-	   					<td>PD</td>
-	   					<td>{{PD}}</td>
-	   				</tr>
-	   				<tr>
-	   					<td>Work Term Report</td>
-	   					<td>{{WKRPT}}</td>
-	   				</tr>
-	   				<tr>
-	   					<td>Co-ops</td>
-	   					<td>{{COOP}}</td>
-	   				</tr>	   				
-	  				</table>
-				</td>
-			</tr>
-		</table>
-		{% for text in rqrmnt %}
-		<p>{{ text }}</p>
-		{% endfor %}
-	</body>
-</html>
+<section>
+<link rel="stylesheet" href="../static/result.css">
+  <!--for demo wrap-->
+  <h1>Fixed Table header</h1>
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>Requirement</th>
+          <th>Fulfilled</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        <tr>
+          <td>ECE</td>
+          <td>{{ECE}}</td>
+        </tr>
+        <tr>
+          <td>ECE</td>
+          <td>
+          {{TE}}
+          </td>
+        </tr>
+        <tr>
+          <td>ECE</td>
+          <td>
+          {{NSE}}
+          </td>
+        </tr>
+        <tr>
+          <td>ECE</td>
+          <td>
+          {{CSE}}
+          </td>
+        </tr>
+        <tr>
+          <td>ECE</td>
+          <td>
+          {{PD}}
+          </td>
+        </tr>
+        <tr>
+          <td>ECE</td>
+          <td>
+          {{WKRPT}}
+          </td>
+        </tr>
+        <tr>
+          <td>ECE</td>
+          <td>
+          {{COOP}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{% for text in rqrmnt %}
+<p>{{ text }}</p>
+{% endfor %}
+</section>
+
+
+
+<!-- follow me template -->
+<div class="made-with-love">
+  Designed by
+  <a target="_blank" href="http://www.youssefibrahim.com">Youssef Ibrahim</a>
+</div>

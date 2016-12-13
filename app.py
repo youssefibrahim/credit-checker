@@ -19,13 +19,13 @@ def my_form_post():
 
 	rqrmnt, PD, WKRPT, COOP, ECE, CSE, NSE, TE = check_requirements(courses, coop)
 	
-	PD = reformat(sorted(PD))
-	WKRPT = reformat(sorted(WKRPT))
-	COOP = reformat(sorted(COOP))
-	ECE = reformat(sorted(ECE))
-	CSE = reformat(sorted(CSE))
-	NSE = reformat(sorted(NSE))
-	TE = reformat(sorted(TE))
+	PD = convert_to_string(sorted(PD))
+	WKRPT = convert_to_string(sorted(WKRPT))
+	COOP = convert_to_string(sorted(COOP))
+	ECE = convert_to_string(sorted(ECE))
+	CSE = convert_to_string(sorted(CSE))
+	NSE = convert_to_string(sorted(NSE))
+	TE = convert_to_string(sorted(TE))
 
 	return render_template('result.html', rqrmnt=rqrmnt, PD=PD, WKRPT=WKRPT, COOP=COOP, ECE=ECE, CSE=CSE, NSE=NSE, TE=TE)
     
@@ -33,7 +33,7 @@ def my_form_post():
 def present_disclaimer():
 	return send_file('static/disclaimer.pdf')
 
-def reformat(courses):
+def convert_to_string(courses):
 	return ', '.join(courses)
 
 
