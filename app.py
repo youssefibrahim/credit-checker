@@ -11,8 +11,6 @@ def home():
 def my_form_post():
 	text = request.form['transcript']
 	eng = request.form['dropdown']
-	import pdb
-	pdb.set_trace()
 	lines = text.split('\n')
 	courses = [line.split() for line in lines if '/' in line and "Course" not in line]
 	coop = [line.rstrip() for line in lines if "COOP" in line and "CR" in line]
@@ -20,26 +18,26 @@ def my_form_post():
 	courses = [extract_course_name(course) for course in courses]
 	coop = [extract_course_name(work.split()) for work in coop]
 
-	rqrmnt, PD, WKRPT, COOP, ECE, CSE, NSE, TE = check_requirements(courses, coop)
-	
-	PD = convert_to_string(sorted(PD))
-	WKRPT = convert_to_string(sorted(WKRPT))
-	COOP = convert_to_string(sorted(COOP))
-	ECE = convert_to_string(sorted(ECE))
-	CSE = convert_to_string(sorted(CSE))
-	NSE = convert_to_string(sorted(NSE))
-	TE = convert_to_string(sorted(TE))
+	crs = check_requirements(courses, coop, eng)
+	import pdb
+	pdb.set_trace()
+	PD = crs['PD']
+	WKRPT = crs['WKRPT']
+	COOP = crs['COOP']
+	ECE = crs['ECE']
+	CSE = crs['CSE']
+	NSE = crs['NSE']
+	TE = crs['TE']
 
-	return render_template('result.html', rqrmnt=rqrmnt, PD=PD, WKRPT=WKRPT, COOP=COOP, ECE=ECE, CSE=CSE, NSE=NSE, TE=TE)
-    
+	return render_template('result.html', PD=PD[0], WKRPT=WKRPT[0], COOP=COOP[0], ECE=ECE[0], CSE=CSE[0], NSE=NSE[0], TE=TE[0])
+
+  
 @app.route("/disclaimer")
 def present_disclaimer():
 	return send_file('static/disclaimer.pdf')
 
 def convert_to_string(courses):
 	return ', '.join(courses)
-
-
 
 if __name__ == "__main__":
     app.run()

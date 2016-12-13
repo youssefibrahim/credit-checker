@@ -21,16 +21,13 @@ def get_passed_courses(courses):
 def extract_course_name(course):
 	return ' '.join(course[:2])
 
-def is_ee(courses):
-	EE_flag = False
+def is_ee(dropdown_string):
+	if dropdown_string == 'Electrical Engineering':
+		return True
+	print(dropdown_string)
+	return False
 
-	if set(manditory_EE).issubset(set(courses)):
-		EE_flag = True
-
-	return EE_flag
-
-def group_courses(courses):
-	EE_flag = is_ee(courses)
+def group_courses(courses, EE_flag):
 	PD = []
 	ECE = []
 	CSE = []
@@ -62,8 +59,7 @@ def check_if_cse(course):
 	return check_if_list_c_cse(course) or check_if_list_a_cse(course) or check_if_list_d_cse(course)
 
 def check_if_list_d_cse(course):
-	return True if course in set(cse_courses_list_d) else False
-
+	return True if course in set(cse_courses_list_d) and any([course.startswith(dprtmnt) for dprtmnt in dprtmns_list_d]) else False
 
 def check_if_list_c_cse(course):
 	is_cse = False
@@ -81,42 +77,42 @@ def check_if_list_a_cse(course):
 	return True if course in set(cse_courses_list_a) else False
 	
 
-def check_requirements(courses, COOP):
-	PD, ECE, CSE, NSE, TE, WKRPT = group_courses(courses)
-	requirement = []
-	requirement.append(check_non_course(PD, 5))
-	requirement.append(check_non_course(WKRPT, 3))
-	requirement.append(check_non_course(COOP, 5))
+def check_requirements(unorganized_courses, COOP, dropdown_string):
+	EE_flag = is_ee(dropdown_string)
+	PD, ECE, CSE, NSE, TE, WKRPT = group_courses(unorganized_courses, EE_flag)
 
-	requirement.append(check_ece_courses(ECE))
-	requirement.append(check_cse_courses(CSE))
-	requirement.append(check_nse_courses(NSE))
-	requirement.append(check_te_courses(TE))
-	return requirement, PD, WKRPT, COOP, ECE, CSE, NSE, TE
+	courses = {}
+	courses['PD'] = build_dict(PD,[],5)
+	courses['WKRPT'] = build_dict(WKRPT,[],3)
+	courses['COOP'] = build_dict(COOP,[],5)
+
+	courses['ECE'] = check_ece_courses(ECE, EE_flag)
+	courses['CSE'] = check_cse_courses(CSE)
+	courses['NSE'] = check_nse_courses(NSE)
+	courses['TE'] = check_te_courses(TE)
+
+	return courses
+
+def build_dict(courses=[], missing_courses=[], num_required=None):
+	if not num_required:
+		num_required = len(courses)
+
+	if missing_courses and not num_required:
+		return {'completed': courses, 'missing': missing_courses, 'num_missing': len(missing_courses)} 
+
+	return {'completed': courses, 'missing': missing_courses, 'num_missing': num_required-len(courses)}
 
 
-def check_non_course(satisfied, requirement=None):
-	if requirement:
-		
-	name = satisfied[0].split()[0]
 
-	if len(satisfied)<requirement:
-		return "WARNING: You currently have {} {}, but require at least {}\n".format(len(satisfied), name, requirement)
-	else:
-		return "You've met requirements for {}\n".format(name)
-		
 
-def check_ece_courses(ece_courses):
-	EE_flag = is_ee(ece_courses)
+def check_ece_courses(ece_courses, EE_flag):
+	dict = {}
+	if EE_flag:
+		return build_dict(ece_courses, list(set(manditory + manditory_EE) - set(ece_courses)))
 
-	if set(ece_courses) == set(manditory + manditory_EE) or set(ece_courses) == set(manditory_EE + manditory_CE):
-		rslt = "You've met all your "
-		if EE_flag:
-			rslt += "Electrical Engineering course requirements\n"
-		else:
-			rslt += "Computer Engineering course requirements\n"
-
-	return rslt
+	import pdb
+	pdb.set_trace()
+	return build_dict(ece_courses, list(set(manditory + manditory_CE) - set(ece_courses)))
 
 
 def check_nse_courses(nse_courses):
@@ -131,7 +127,15 @@ def check_nse_courses(nse_courses):
 		if list_2 and list_1:
 			break
 
-	return list_1 and list_2
+	missing = []
+	if list_1 and list_2:
+		return build_dict(nse_courses)
+	else:
+		if not list_1:
+			missing.append('List 1 NSE')
+		if not list_2:
+			missing.append('List 2 NSE')
+	return build_dict(nse_courses, missing)
 
 
 def check_cse_courses(cse_courses):
@@ -145,30 +149,27 @@ def check_cse_courses(cse_courses):
 		elif check_if_list_a_cse(course) or check_if_list_d_cse(course):
 			list_a_d.append(course)
 
-	if (len(list_c) == 2 and len(list_a_d) == 2) or len(list_c) >= 4:
-		return "You've completed your CSE requirements\n"
+	if ((len(list_c) + len(list_a_d)) == 4):
+		return build_dict(cse_courses)
 
-	else:
-		return "WARNING: You have completed {} from list C and {} from list A/C/D while required is 2 from list C and 2 from any of A/C/D\n".format(len(list_c),len(list_a_d))
+	return build_dict(cse_courses,[] ,4-(len(list_c) + len(list_a_d)))
 
 
 def check_te_courses(te_courses):
 	ece_count = 0
 	for course in te_courses:
 		if course.startswith('ECE'):
-			ece_count += 1
+			ece_count += 1		
 
-	if ece_count >= 3 and len(te_courses) >= 5:
-		return "You've satisfied all TE requirements"
+	missing = []
+	
+	if ece_count < 	3:
+		missing.append("ECE Courses: {}".format(3-ece_count))
 
-	else:
-		if ece_count < 3:
-			return "You haven't satisfied the required 3 ECE TE's, and only recieved {}\n".format(ece_count)
-
-		if len(te_courses) < 5:
-			courses = (' '.join(te_courses))
-			return "You have only completed {} ({}) out of the 5 required TE courses\n".format(len(te_courses), courses)
-
+	if len(te_courses) < 5:
+		missing.append("Other TEs: {}".format(5-len(te_courses)-(3-ece_count)))
+	
+	return build_dict(te_courses,missing,5)
 
 
 def is_passed(course):
