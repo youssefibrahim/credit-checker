@@ -37,6 +37,10 @@ def is_passed(course):
 	indices = find_indices(course, slash)
 	for index in indices:
 		units = course[index].split(slash)
+		try:
+			earned = float(units[1])
+		except ValueError:
+			continue
 		if float(units[1]) > 0:
 			return True
 		elif course[-2] == 'SUPP':
