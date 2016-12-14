@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, send_file
 from credit_checker import *
+import os
 
 app = Flask(__name__)
 
