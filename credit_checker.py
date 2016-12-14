@@ -41,7 +41,7 @@ def is_passed(course):
 			earned = float(units[1])
 		except ValueError:
 			continue
-		if float(units[1]) > 0:
+		if earned > 0:
 			return True
 		elif course[-2] == 'SUPP':
 			if course[-1] == 'S':
