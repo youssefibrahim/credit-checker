@@ -147,8 +147,6 @@ def check_cse_courses(cse_courses):
 		elif check_if_list_a_cse(course) or check_if_list_d_cse(course):
 			list_a_d.append(course)
 
-	import pdb
-	pdb.set_trace()
 	if ((len(list_c) + len(list_a_d)) == 4):
 		return build_dict(cse_courses)
 
