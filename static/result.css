@@ -30,11 +30,11 @@ th{
   text-transform: uppercase;
 }
 td{
-  padding: 15px;
+  padding: 20px;
   text-align: left;
   vertical-align:middle;
-  font-weight: 300;
-  font-size: 12px;
+  font-weight: 400;
+  font-size: 15px;
   color: #fff;
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
