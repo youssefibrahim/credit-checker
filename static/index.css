@@ -64,28 +64,28 @@ body {
 }
 
 textarea::-webkit-input-placeholder {
-  font-size: 25px;
+  font-size: 22px;
   line-height: 1;
   text-align: center;
   color: black;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-  font-size: 25px;
+  font-size: 22px;
   line-height: 1;
   text-align: center;
   color: black;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-  font-size: 25px;
+  font-size: 22px;
   line-height: 1;
   text-align: center;
   color: black; 
 }
 
 :-ms-input-placeholder {  
-  font-size: 25px;
+  font-size: 22px;
   line-height: 1;
   text-align: center;
   color: black;
@@ -110,6 +110,9 @@ textarea::-webkit-input-placeholder {
   transition: background-color 0.3s ease-in-out;
 }
 
+a:focus, a:hover {
+  text-decoration: none;
+}
 
 .copyright {
   text-align: center;

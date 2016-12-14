@@ -44,9 +44,6 @@ def my_form_post():
 	NSE_mn = get_missing_number(crs, 'NSE')
 	TE_mn = get_missing_number(crs, 'TE')
 
-	import pdb
-	pdb.set_trace()
-
 	return render_template('result.html', PD=PD_cc, WKRPT=WKRPT_cc, COOP=COOP_cc, ECE=ECE_cc, CSE=CSE_cc, NSE=NSE_cc, TE=TE_cc, PD_mn=PD_mn, WKRPT_mn=WKRPT_mn, COOP_mn=COOP_mn, ECE_mn=ECE_mn, CSE_mn=CSE_mn, NSE_mn=NSE_mn, TE_mn=TE_mn, PD_m=PD_m, WKRPT_m=WKRPT_m, COOP_m=COOP_m, ECE_m=ECE_m, CSE_m=CSE_m, NSE_m=NSE_m, TE_m=TE_m)
 
   

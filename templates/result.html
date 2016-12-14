@@ -1,136 +1,153 @@
-<section>
-<link rel="stylesheet" href="../static/result.css">
-<div id="site-nav" class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/" style="color: black; font-size: 40px;">Credit Checker</a>
-        </div>
-    </div>
-  </div>
-  <!--for demo wrap-->
-  
-  <h1>Missing Courses</h1>
-  <div class="tbl-header">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <thead>
-        <tr>
-          <th>Requirement</th>
-          <th>Number of Missing Courses</th>
-          <th>Missing Courses</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <tbody>
-        <tr>
-          <td>ECE Core Courses</td>
-          <td style="text-align: center">{{ECE_mn}}</td>
-          <td style="text-align: center">{{ECE_m}}</td>
-        </tr>
-        <tr>
-          <td>Technical Electives</td>
-          <td style="text-align: center">{{TE_mn}}</td>
-          <td style="text-align: center">{{TE_m}}</td>
-        </tr>
-        <tr>
-          <td>Natural Science Electives</td>
-          <td style="text-align: center">{{NSE_mn}}</td>
-          <td style="text-align: center">{{NSE_m}}</td>
-        </tr>
-        <tr>
-          <td>Complementary Studies Electives</td>
-          <td style="text-align: center">{{CSE_mn}}</td>
-          <td style="text-align: center">{{CSE_m}}</td>
-        </tr>
-        <tr>
-          <td>Professional Development Courses</td>
-          <td style="text-align: center">{{PD_mn}}</td>
-          <td style="text-align: center">{{PD_m}}</td>
-        </tr>
-        <tr>
-          <td>Work Term Reports</td>
-          <td style="text-align: center">{{WKRPT_mn}}</td>
-          <td style="text-align: center">{{WKRPT_m}}</td>
-        </tr>
-        <tr>
-          <td>Co-ops</td>
-          <td style="text-align: center">{{COOP_mn}}</td>
-          <td style="text-align: center">{{COOP_m}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <h1>Completed Courses</h1>
-  <div class="tbl-header">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <thead>
-        <tr>
-          <th>Requirement</th>
-          <th>Fulfilled</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <tbody>
-        <tr>
-          <td>ECE Core Courses</td>
-          <td>{{ECE}}</td>
-        </tr>
-        <tr>
-          <td>Technical Electives</td>
-          <td>
-          {{TE}}
-          </td>
-        </tr>
-        <tr>
-          <td>Natural Science Electives</td>
-          <td>
-          {{NSE}}
-          </td>
-        </tr>
-        <tr>
-          <td>Complementary Studies Electives</td>
-          <td>
-          {{CSE}}
-          </td>
-        </tr>
-        <tr>
-          <td>Professional Development</td>
-          <td>
-          {{PD}}
-          </td>
-        </tr>
-        <tr>
-          <td>Work Term Reports</td>
-          <td>
-          {{WKRPT}}
-          </td>
-        </tr>
-        <tr>
-          <td>Co-ops</td>
-          <td>
-          {{COOP}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ECE Credit Checker</title>
+	<link rel="stylesheet" href="../static/result.css">
+</head>
+<body>
+	<section>
+	<div>
+    <style>
+      ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: white;
+      }
 
+      li {
+          float: left;
+      }
+      li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+      }
+    </style>
+  </div>
 
-
+  <ul style="width: 100%;position: absolute;top: 0px;left: 0px;">
+    <li><a style="font-size: 25px;color: black;font-weight: bold;padding-bottom: 7px;padding-top: 9px;text-decoration: none;" class="active" href="/">Credit Checker</a></li>
+  </ul>
+	  <!--for demo wrap-->
+	  <h1>Missing Courses</h1>
+	  <div class="tbl-header">
+	    <table cellpadding="0" cellspacing="0" border="0">
+	      <thead>
+	        <tr>
+	          <th>Requirement</th>
+	          <th>Number of Missing Courses</th>
+	          <th>Missing Courses</th>
+	        </tr>
+	      </thead>
+	    </table>
+	  </div>
+	  <div class="tbl-content">
+	    <table cellpadding="0" cellspacing="0" border="0">
+	      <tbody>
+	        <tr>
+	          <td>ECE Core Courses</td>
+	          <td style="text-align: center">{{ECE_mn}}</td>
+	          <td style="text-align: center">{{ECE_m}}</td>
+	        </tr>
+	        <tr>
+	          <td>Technical Electives</td>
+	          <td style="text-align: center">{{TE_mn}}</td>
+	          <td style="text-align: center">{{TE_m}}</td>
+	        </tr>
+	        <tr>
+	          <td>Natural Science Electives</td>
+	          <td style="text-align: center">{{NSE_mn}}</td>
+	          <td style="text-align: center">{{NSE_m}}</td>
+	        </tr>
+	        <tr>
+	          <td>Complementary Studies Electives</td>
+	          <td style="text-align: center">{{CSE_mn}}</td>
+	          <td style="text-align: center">{{CSE_m}}</td>
+	        </tr>
+	        <tr>
+	          <td>Professional Development Courses</td>
+	          <td style="text-align: center">{{PD_mn}}</td>
+	          <td style="text-align: center">{{PD_m}}</td>
+	        </tr>
+	        <tr>
+	          <td>Work Term Reports</td>
+	          <td style="text-align: center">{{WKRPT_mn}}</td>
+	          <td style="text-align: center">{{WKRPT_m}}</td>
+	        </tr>
+	        <tr>
+	          <td>Co-ops</td>
+	          <td style="text-align: center">{{COOP_mn}}</td>
+	          <td style="text-align: center">{{COOP_m}}</td>
+	        </tr>
+	      </tbody>
+	    </table>
+	  </div>
+	  <h1>Completed Courses</h1>
+	  <div class="tbl-header">
+	    <table cellpadding="0" cellspacing="0" border="0">
+	      <thead>
+	        <tr>
+	          <th>Requirement</th>
+	          <th>Fulfilled</th>
+	        </tr>
+	      </thead>
+	    </table>
+	  </div>
+	  <div class="tbl-content">
+	    <table cellpadding="0" cellspacing="0" border="0">
+	      <tbody>
+	        <tr>
+	          <td>ECE Core Courses</td>
+	          <td>{{ECE}}</td>
+	        </tr>
+	        <tr>
+	          <td>Technical Electives</td>
+	          <td>
+	          {{TE}}
+	          </td>
+	        </tr>
+	        <tr>
+	          <td>Natural Science Electives</td>
+	          <td>
+	          {{NSE}}
+	          </td>
+	        </tr>
+	        <tr>
+	          <td>Complementary Studies Electives</td>
+	          <td>
+	          {{CSE}}
+	          </td>
+	        </tr>
+	        <tr>
+	          <td>Professional Development</td>
+	          <td>
+	          {{PD}}
+	          </td>
+	        </tr>
+	        <tr>
+	          <td>Work Term Reports</td>
+	          <td>
+	          {{WKRPT}}
+	          </td>
+	        </tr>
+	        <tr>
+	          <td>Co-ops</td>
+	          <td>
+	          {{COOP}}
+	          </td>
+	        </tr>
+	      </tbody>
+	    </table>
+	  </div>
+	</section>
+</body>
 <!-- follow me template -->
 <div class="made-with-love">
   Designed by
   <a target="_blank" href="http://www.youssefibrahim.com">Youssef Ibrahim</a>
 </div>
+</html>

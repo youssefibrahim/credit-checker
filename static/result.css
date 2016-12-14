@@ -71,6 +71,9 @@ section{
   text-decoration: underline;
 }
 
+a:focus, a:hover {
+  text-decoration: none;
+}
 
 /* for custom scrollbar for webkit browser*/
 
