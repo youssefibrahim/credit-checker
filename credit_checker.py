@@ -59,7 +59,7 @@ def check_if_cse(course):
 	return check_if_list_c_cse(course) or check_if_list_a_cse(course) or check_if_list_d_cse(course)
 
 def check_if_list_d_cse(course):
-	return True if course in set(cse_courses_list_d) and any([course.startswith(dprtmnt) for dprtmnt in dprtmns_list_d]) else False
+	return True if course in set(cse_courses_list_d) or any([course.startswith(dprtmnt) for dprtmnt in dprtmns_list_d]) else False
 
 def check_if_list_c_cse(course):
 	is_cse = False
