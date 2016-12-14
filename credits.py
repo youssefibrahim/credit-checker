@@ -1,5 +1,8 @@
+# This file is meant to capture all possibilities of courses allowed to be 
+# taken and programs which are not allowed to be taken
 
 nse_courses_list_1 = ['BIOL 130', 'BIOL 130L', 'BIOL 240', 'BIOL 240L', 'BIOL 273', 'BIOL 273L', 'CHEM 123', 'CHEM 123L', 'CHEM 237' , 'CHEM 237L', 'CHEM 262',  'CHEM 262L', 'ECE 403', 'ECE 404', 'ECE 405', 'ENVS 200', 'NE 122']
+
 nse_courses_list_2 = ['BIOL 110', 'BIOL 130', 'BIOL 150', 'BIOL 165', 'BIOL 211', 'BIOL 240', 'BIOL 241', 'BIOL 273', 'CHE 161', 'CHEM 123', 'CHEM 209', 'CHEM 217', 'CHEM 237', 'CHEM 254', 'CHEM 262', 'CHEM 266', 'CHEM 356', 'CHEM 404', 'EARTH 121', 'EARTH 122', 'EARTH 123', 'EARTH 221', 'EARTH 270', 'EARTH 281', 'ECE 209', 'ENVE 275', 'ENVE 276', 'PHYS 234', 'PHYS 263', 'PHYS 75', 'PHYS 280', 'PHYS 334', 'PHYS 335', 'PHYS 375', 'PHYS 380', 'SCI 238']
 
 cse_courses_list_a = ['BME 381','ECE 390','ENVS 105','ERS 215','ERS 315','GENE 22A','GEOG 203','GEOG 368','MSCI 422','MSCI 442','NE 109','PHIL 226','SOC 232','STV 100','STV 202','STV 203','STV 205','STV 210','STV 302','STV 404','SYDE 261','WS 205']
@@ -15,6 +18,7 @@ cse_courses_list_d = ['AFM 131','APPLS 205R', 'APPLS 301', 'APPLS 304R', 'APPLS 
 dprtmns_list_d = ['FINE']
 
 manditory = ['ECE 400B', 'ECE 498B', 'ECE 400A', 'ECE 498A', 'ECE 224', 'ECE 300B', 'ECE 318', 'ECE 390', 'ECE 300A', 'ECE 316', 'ECE 380', 'ECE 200B', 'ECE 207', 'ECE 242', 'ECE 200A', 'ECE 205', 'ECE 222', 'ECE 240', 'ECE 250', 'ECE 290', 'ECE 100B', 'ECE 103', 'ECE 106', 'ECE 124', 'ECE 155', 'ECE 100A', 'ECE 105', 'ECE 140', 'ECE 150', 'MATH 215', 'MATH 119', 'CHE 102', 'MATH 117']
+
 manditory_EE = ['ECE 361', 'ECE 331', 'ECE 375', 'ECE 206', 'ECE 209']
 manditory_CE = ['ECE 254', 'ECE 327', 'ECE 351', 'ECE 356', 'ECE 358']
 
