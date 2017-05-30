@@ -1,6 +1,10 @@
 from flask import Flask, render_template, redirect, request, send_file
 from credit_checker import *
+from credits import *
 import os
+
+TOTAL_TERMS = 8
+TOTAL_COURSE_COUNT = len(manditory) + len(manditory_EE)
 
 app = Flask(__name__)
 
@@ -13,6 +17,12 @@ def my_form_post():
 	text = request.form['transcript']
 	eng = request.form['dropdown']
 	lines = text.split('\n')
+
+	season = ['Winter', 'Spring', 'Fall']
+	terms = set([line.split()[2] for line in lines if any(x in line for x in season)])
+
+	
+
 	courses = [line.split() for line in lines if '/' in line and "Course" not in line]
 	coop = [line.rstrip() for line in lines if "COOP" in line and "CR" in line]
 	courses = get_passed_courses(courses)
@@ -21,6 +31,7 @@ def my_form_post():
 
 	crs = check_requirements(courses, coop, eng)
 	
+	# completed courses
 	PD_cc = convert_to_string(get_completed_courses(crs, 'PD'))
 	WKRPT_cc = convert_to_string(get_completed_courses(crs, 'WKRPT'))
 	COOP_cc = convert_to_string(get_completed_courses(crs, 'COOP'))
@@ -29,6 +40,7 @@ def my_form_post():
 	NSE_cc = convert_to_string(get_completed_courses(crs, 'NSE'))
 	TE_cc = convert_to_string(get_completed_courses(crs, 'TE'))
 
+	# missing courses
 	PD_m = convert_to_string(get_missed_courses(crs, 'PD'))
 	WKRPT_m = convert_to_string(get_missed_courses(crs, 'WKRPT'))
 	COOP_m = convert_to_string(get_missed_courses(crs, 'COOP'))
@@ -37,6 +49,7 @@ def my_form_post():
 	NSE_m = convert_to_string(get_missed_courses(crs, 'NSE'))
 	TE_m = convert_to_string(get_missed_courses(crs, 'TE'))
 
+	# missing number
 	PD_mn = get_missing_number(crs, 'PD')
 	WKRPT_mn = get_missing_number(crs, 'WKRPT')
 	COOP_mn = get_missing_number(crs, 'COOP')
@@ -45,7 +58,9 @@ def my_form_post():
 	NSE_mn = get_missing_number(crs, 'NSE')
 	TE_mn = get_missing_number(crs, 'TE')
 
-	return render_template('result.html', PD=PD_cc, WKRPT=WKRPT_cc, COOP=COOP_cc, ECE=ECE_cc, CSE=CSE_cc, NSE=NSE_cc, TE=TE_cc, PD_mn=PD_mn, WKRPT_mn=WKRPT_mn, COOP_mn=COOP_mn, ECE_mn=ECE_mn, CSE_mn=CSE_mn, NSE_mn=NSE_mn, TE_mn=TE_mn, PD_m=PD_m, WKRPT_m=WKRPT_m, COOP_m=COOP_m, ECE_m=ECE_m, CSE_m=CSE_m, NSE_m=NSE_m, TE_m=TE_m)
+	completion_percent = int(((TOTAL_COURSE_COUNT - ECE_mn)/float(TOTAL_COURSE_COUNT))*100)
+
+	return render_template('result.html', cp=completion_percent, PD=PD_cc, WKRPT=WKRPT_cc, COOP=COOP_cc, ECE=ECE_cc, CSE=CSE_cc, NSE=NSE_cc, TE=TE_cc, PD_mn=PD_mn, WKRPT_mn=WKRPT_mn, COOP_mn=COOP_mn, ECE_mn=ECE_mn, CSE_mn=CSE_mn, NSE_mn=NSE_mn, TE_mn=TE_mn, PD_m=PD_m, WKRPT_m=WKRPT_m, COOP_m=COOP_m, ECE_m=ECE_m, CSE_m=CSE_m, NSE_m=NSE_m, TE_m=TE_m)
 
   
 @app.route("/disclaimer")
