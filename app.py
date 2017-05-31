@@ -46,13 +46,9 @@ def my_form_post():
 	TE = user.TE
 	
 	completion_percent = int(((TOTAL_ECE_COUNT - ECE['num_missing'])/float(TOTAL_ECE_COUNT))*100)
-	print CSE
-	print PD
-	print WKRPT
-	print COOP
 	
 	if completion_percent == 100:
-		return redirect("https://youtu.be/SC4xMk98Pdc?t=35s")
+		return redirect("https://youtu.be/SC4xMk98Pdc?t=37s")
 
 	return render_template('result.html', sort=sorted, convert=convert_to_string, cp=completion_percent, PD=PD, WKRPT=WKRPT, COOP=COOP, ECE=ECE, CSE=CSE, NSE=NSE, TE=TE)
 
@@ -65,6 +61,5 @@ def convert_to_string(courses):
 	return ', '.join(courses)
 
 if __name__ == "__main__":
-    # port = int(os.environ.get('PORT', 8000))
-    # app.run(host='0.0.0.0', port=port)
-    app.run()
+	port = int(os.environ.get('PORT', 8000))
+	app.run(host='0.0.0.0', port=port)
