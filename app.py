@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, request, send_file
-from werkzeug.wrappers import Response
 from credit_checker import *
 from user import *
 from credits import *
@@ -37,16 +36,16 @@ def my_form_post():
 	# build dictionary based off users transcript
 	crs = check_requirements(courses, coop, eng)
 	
-	user = user(crs)
+	user = student(crs)
 
 	# completed courses
-	PD_cc = convert_to_string(get_completed_courses(crs, 'PD'))
-	WKRPT_cc = convert_to_string(get_completed_courses(crs, 'WKRPT'))
-	COOP_cc = convert_to_string(get_completed_courses(crs, 'COOP'))
-	ECE_cc = convert_to_string(get_completed_courses(crs, 'ECE'))
-	CSE_cc = convert_to_string(get_completed_courses(crs, 'CSE'))
-	NSE_cc = convert_to_string(get_completed_courses(crs, 'NSE'))
-	TE_cc = convert_to_string(get_completed_courses(crs, 'TE'))
+	PD_cc = user.PD
+	WKRPT_cc = user.WKRPT
+	COOP_cc = user.COOP
+	ECE_cc = user.ECE
+	CSE_cc = user.CSE
+	NSE_cc = user.NSE
+	TE_cc = user.TE
 
 	# missing courses
 	PD_m = convert_to_string(get_missed_courses(crs, 'PD'))
@@ -71,10 +70,11 @@ def my_form_post():
 	if completion_percent == 100:
 		return redirect("https://youtu.be/SC4xMk98Pdc?t=35s")
 
-	return render_template('result.html', cp=completion_percent, PD=PD_cc, WKRPT=WKRPT_cc, COOP=COOP_cc, ECE=ECE_cc, CSE=CSE_cc, NSE=NSE_cc, TE=TE_cc, PD_mn=PD_mn, WKRPT_mn=WKRPT_mn, COOP_mn=COOP_mn, ECE_mn=ECE_mn, CSE_mn=CSE_mn, NSE_mn=NSE_mn, TE_mn=TE_mn, PD_m=PD_m, WKRPT_m=WKRPT_m, COOP_m=COOP_m, ECE_m=ECE_m, CSE_m=CSE_m, NSE_m=NSE_m, TE_m=TE_m)
+	#return render_template('result.html', cp=completion_percent, PD=PD_cc, WKRPT=WKRPT_cc, COOP=COOP_cc, ECE=ECE_cc, CSE=CSE_cc, NSE=NSE_cc, TE=TE_cc, PD_mn=PD_mn, WKRPT_mn=WKRPT_mn, COOP_mn=COOP_mn, ECE_mn=ECE_mn, CSE_mn=CSE_mn, NSE_mn=NSE_mn, TE_mn=TE_mn, PD_m=PD_m, WKRPT_m=WKRPT_m, COOP_m=COOP_m, ECE_m=ECE_m, CSE_m=CSE_m, NSE_m=NSE_m, TE_m=TE_m)
+	return render_template('result.html', cp=completion_percent, PD=PD_cc, WKRPT=WKRPT_cc, COOP=COOP_cc, ECE=ECE_cc, CSE=CSE_cc, NSE=NSE_cc, TE=TE_cc)
 
-@app.route("/download")
-def get_user_data():
+# @app.route("/download")
+# def get_user_data():
 
   
 @app.route("/disclaimer")
